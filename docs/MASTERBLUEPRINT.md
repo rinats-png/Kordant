@@ -63,7 +63,7 @@ Jede Änderung muss auf eine Anforderung zurückgeführt werden können. Tests, 
 
 ### Ebene E – Betrieb
 
-Ein Release wird nach Staging-Prüfung, Sicherheitsgates, Datenmigration, Backup, Restore-Drill und manueller Freigabe bereitgestellt. Ziel ist in der ersten Ausbaustufe ein IONOS/Ubuntu-VPS mit Docker Compose + Caddy, später optional Kubernetes, managed DB, CDN und weitere Cloudadapter. Default ist weiterhin **keine direkte Verbindung zu Produktionsservern**.
+Ein Release wird nach Staging-Prüfung, Sicherheitsgates, Datenmigration, Backup, Restore-Drill und manueller Freigabe bereitgestellt. Referenz ist eine konfigurierbare, anbieterneutrale Plattform (VPS, Container-Host, PaaS, Kubernetes, Bare Metal, Serverless oder lokal). Docker Compose/Caddy sind nur Beispiele. Provider-Adapter müssen per Capability-Profil gewählt und separat geprüft werden. Default ist weiterhin **keine direkte Verbindung zu Produktionsservern**.
 
 ## 3. Zulässige Zustandswechsel
 
@@ -101,7 +101,7 @@ Hallmark ist die **einzige führende Stilsprache** pro Produkt. Taste ist ein ge
 
 Browser → DNS → TLS/Caddy → private Container-Netzwerke → Anwendung → getrennte Datenbank / persistente Volumes. Keine öffentlich erreichbare Datenbank, kein Docker Socket im App-Container, keine Secrets in Git oder Browser. DNS, Firewall, Fail2ban oder vergleichbare Mechanismen, automatische OS-Sicherheitsupdates, SSH-Key und least privilege separat prüfen. Managed Secrets/DB sind je nach Datenschutz und Aufwand sinnvoller als Eigenbau.
 
-Bestehende IONOS-Installation: zuerst Docker-/Caddy-Konfiguration, verfügbare Ports, Domains, Volumes, Datenbanken, laufende Live-Version, Backups, Nutzeraktivität und E-Mail-Anbieter erfassen. Nie stillschweigend die bestehende Caddy-Konfiguration überschreiben. Alle Datenbewegungen auf Testkopien proben. Vor Migration konsistente Snapshots und Restore-Test.
+Bestehende VPS-/Cloud-Installation: zuerst Docker-/Caddy-Konfiguration, verfügbare Ports, Domains, Volumes, Datenbanken, laufende Live-Version, Backups, Nutzeraktivität und E-Mail-Anbieter erfassen. Nie stillschweigend die bestehende Caddy-Konfiguration überschreiben. Alle Datenbewegungen auf Testkopien proben. Vor Migration konsistente Snapshots und Restore-Test.
 
 ## 9. Mobile, Desktop, PWA, API
 

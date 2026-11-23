@@ -1,0 +1,12 @@
+node_modules/
+.DS_Store
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+.kordant/
+!examples/demo-project/.kordant/README.md
+coverage/
+*.log

@@ -1,3 +1,5 @@
+> **2026-11-23 · v0.2.0-Update:** Anbieterneutrale Plattformprofile und Migrationspläne implementiert; zusätzlicher idea-to-app-Markdown-Importer/Traceability-Report, Skill-Pinning, Journal-HMAC-Check, Evals, read-only Git-Inspektion, Fähigkeitsprüfung und operator-gesteuerte Recovery. Die darunter aufgeführten restlichen Plattform- und Produktionspunkte sind weiterhin offen; ein lokaler Test ist keine reale Produktionsabnahme.
+
 # KORDANT – Implementierungsstand und vollständige Roadmap
 
 ## Warum eine ehrliche Abgrenzung wichtig ist
