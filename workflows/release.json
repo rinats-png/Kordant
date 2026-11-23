@@ -71,7 +71,7 @@
       "id": "release",
       "title": "Deployplan und operativen Handoff dokumentieren",
       "agent": "sre",
-      "skill": "ionos-deploy",
+      "skill": "provider-agnostic-deploy",
       "scope": [
         "infra/"
       ],

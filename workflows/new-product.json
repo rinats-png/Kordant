@@ -206,7 +206,7 @@
       "id": "infrastructure",
       "title": "VPS und Monitoring für Staging vorbereiten",
       "agent": "platform",
-      "skill": "ionos-deploy",
+      "skill": "provider-agnostic-deploy",
       "scope": [
         "infra/"
       ],

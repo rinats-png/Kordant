@@ -58,7 +58,7 @@ Du bist die technische Leitung für die **Weiterentwicklung des KORDANT-Reposito
 ## F. P3: eigene Infrastruktur und Migration
 
 - Zunächst lesendes Inventory über getrennten, eingeschränkten Operatorzugang; kein `curl | bash` auf Produktivsystemen.
-- Sicherer Ubuntu/IONOS-VPS-Adapter mit deklarativer Docker/Compose/Caddy/SSH/Firewall/DNS/TLS-Konfiguration, Staging, Secret-Store, Offsite-Backups.
+- Anbieterneutraler Staging- und Deployment-Adapter für VPS, Containerhost, PaaS und Kubernetes mit deklarativer Docker/Compose/Caddy/SSH/Firewall/DNS/TLS-Konfiguration, Staging, Secret-Store, Offsite-Backups.
 - Migration als Transaktions-/Checkpointprozess mit Konsistenzprüfungen, Testrestore, dry-run, Daten-Write-Freeze, Healthchecks, Roll-forward und fachlicher Freigabe.
 - Release nur mit nachweisbarem identischen Build-Image, geprüfter Integrität, Staging-E2E, Restore-Probe und Betreiberfreigabe. Keine falsche Rückrollgarantie bei nichtreversiblen Schemaänderungen.
 - Monitoring/SLO, PII-redacted logs, Alerting, On-call, Incident-Runbooks, Wiederherstellungsübungen, Rotationskonzept.

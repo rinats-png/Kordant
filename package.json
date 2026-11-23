@@ -1,6 +1,6 @@
 {
   "name": "kordant",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Local-first agentic product engineering orchestration, evidence gates and operational blueprints",
   "type": "module",
   "license": "MIT",
