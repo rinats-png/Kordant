@@ -1,0 +1,11 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {ROOT,readJson,now,stableId,writeAtomic} from './util.mjs';
+import {event,loadTasks,saveTasks,withMutation} from './state.mjs';
+
+export function listWorkflows(){return fs.readdirSync(path.join(ROOT,'workflows')).filter(n=>n.endsWith('.json')).map(n=>readJson(path.join(ROOT,'workflows',n))).map(w=>({id:w.id,title:w.title,steps:w.steps.length,category:w.category}));}
+export function getWorkflow(id){if(!/^[a-z][a-z0-9-]+$/.test(id))throw new Error('Ungültiger Workflow-Name');const w=readJson(path.join(ROOT,'workflows',`${id}.json`));if(!w)throw new Error(`Workflow nicht vorhanden: ${id}`); validateWorkflow(w);return w;}
+export function validateWorkflow(w){const seen=new Set();for(const step of w.steps){if(!step.id||seen.has(step.id))throw new Error(`Doppelte/fehlende ID in ${w.id}`);seen.add(step.id);} for(const s of w.steps)for(const dep of s.dependsOn??[])if(!seen.has(dep))throw new Error(`Unbekannte Abhängigkeit ${dep} in ${w.id}`);
+ const visiting=new Set(),visited=new Set();const map=new Map(w.steps.map(s=>[s.id,s]));const go=id=>{if(visiting.has(id))throw new Error('Zyklus im Workflow');if(visited.has(id))return;visiting.add(id);for(const d of map.get(id).dependsOn??[])go(d);visiting.delete(id);visited.add(id);};for(const s of w.steps)go(s.id);return true;}
+export function startWorkflow(p,id){const w=getWorkflow(id);return withMutation(p,()=>{const current=loadTasks(p);const prefix=`${id}-${new Date().toISOString().replace(/[-:.TZ]/g,'').slice(0,14)}`;if(current.some(t=>t.workflow===id&&t.status!=='done'&&t.status!=='cancelled'))throw new Error(`Aktiver Workflow ${id} vorhanden`);
+ const ids=new Map(w.steps.map((s,i)=>[s.id,`${prefix}-${String(i+1).padStart(2,'0')}`]));const added=w.steps.map(s=>({id:ids.get(s.id),title:s.title,description:s.description??'',workflow:id,agent:s.agent,skill:s.skill,scope:s.scope??['docs/'],dependsOn:(s.dependsOn??[]).map(x=>ids.get(x)),status:'pending',risk:s.risk??p.config.risk,requiredEvidence:s.requiredEvidence??['artifact','review'],createdAt:now(),claimedAt:null,completedAt:null}));saveTasks(p,[...current,...added]);event(p,'workflow.started',{workflow:id,taskIds:added.map(t=>t.id)});return {workflow:id,tasks:added.length,first:added[0].id};});}

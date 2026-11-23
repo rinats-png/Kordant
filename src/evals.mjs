@@ -1,0 +1,7 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {readJson,now,writeAtomic,stableId} from './util.mjs';
+import {withMutation,event} from './state.mjs';
+
+export function evaluateRuns(p,inputFile){const input=readJson(path.resolve(inputFile));if(!input||!Array.isArray(input.cases)||!input.cases.length)throw new Error('Evals benötigen cases[]');const ids=new Set(),details=[];for(const c of input.cases){if(!c.id||ids.has(c.id))throw new Error('Doppelte/fehlende Eval-ID');ids.add(c.id);if(typeof c.score!=='number'||c.score<0||c.score>1)throw new Error('Score muss numerisch 0..1 sein');if(!Number.isFinite(c.costUsd??0)||Number(c.costUsd??0)<0)throw new Error('Ungültige Kosten');details.push({id:c.id,score:c.score,passed:c.score >= Number(c.threshold??0.8),costUsd:Number(c.costUsd??0),durationMs:Number(c.durationMs??0),reviewer:c.reviewer??null});}
+ const result={schemaVersion:1,id:stableId('EVAL'),at:now(),model:input.model??'unbekannt',suite:input.suite??'default',total:details.length,passed:details.filter(c=>c.passed).length,score:details.reduce((n,c)=>n+c.score,0)/details.length,costUsd:details.reduce((n,c)=>n+c.costUsd,0),cases:details,warning:'Bewertungen werden vom Aufrufer bereitgestellt und müssen unabhängig gegen Ground Truth geprüft werden.'};return withMutation(p,()=>{const target=path.join(p.dir,'reports',`eval-${result.id}.json`);writeAtomic(target,result);event(p,'evaluation.reported',{id:result.id,total:result.total,score:result.score});return {file:target,result};});}
