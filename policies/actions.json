@@ -1,0 +1,18 @@
+{
+ "schemaVersion":1,
+ "default":"deny",
+ "capabilities":{
+   "repo.read":{"default":"allow-local","network":"none"},
+   "repo.write":{"default":"deny","requires":"scoped-task-and-sandbox"},
+   "shell.execute":{"default":"deny","requires":"preapproved-command-and-sandbox"},
+   "network.egress":{"default":"deny","requires":"host-allowlist-and-data-classification"},
+   "secrets.read":{"default":"deny","requires":"external-secret-manager-and-minimum-role"},
+   "mcp.install":{"default":"deny","requires":"license-code-audit-and-owner-approval"},
+   "billing.modify":{"default":"deny","requires":"owner-and-billing-review"},
+   "database.schema.production":{"default":"deny","requires":"restore-drill-staging-owner-approval"},
+   "production.deploy":{"default":"deny","requires":"signed-release-external-operator"},
+   "production.delete":{"default":"deny","requires":"documented-legal-basis-two-person-control"},
+   "dns.modify":{"default":"deny","requires":"validated-cutover-and-owner-approval"}
+ },
+ "enforcement":"Policy document only. Effective OS/tool sandboxing is a future component."
+}

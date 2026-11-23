@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "description": "Structural local evidence requirements. Not a proof that the contents are correct.",
+  "gates": {
+    "handoff": ["source", "review"],
+    "merge": ["test", "review"],
+    "staging": ["test", "review", "build", "security"],
+    "release": ["test", "review", "build", "security", "privacy", "backup", "rollback", "staging"],
+    "production": ["test", "review", "build", "security", "privacy", "backup", "rollback", "staging", "approval", "deployment"]
+  },
+  "failClosed": ["production"],
+  "nonBypassable": ["independent human identity and production verification", "legal obligations and external expertise when required"]
+}

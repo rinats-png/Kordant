@@ -1,0 +1,7 @@
+{
+ "$schema":"https://json-schema.org/draft/2020-12/schema", "title":"KORDANT workflow","type":"object",
+ "required":["id","title","steps"],
+ "properties":{"id":{"type":"string","pattern":"^[a-z][a-z0-9-]*$"},"title":{"type":"string"},
+ "steps":{"type":"array","items":{"type":"object","required":["id","title","agent","skill","scope"],"properties":{"id":{"type":"string"},"title":{"type":"string"},"agent":{"type":"string"},"skill":{"type":"string"},"scope":{"type":"array","items":{"type":"string"}},"dependsOn":{"type":"array","items":{"type":"string"}}}}}
+ }
+}

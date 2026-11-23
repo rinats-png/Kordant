@@ -1,0 +1,7 @@
+{
+ "schemaVersion":1,
+ "ownerSkill":"design-hallmark",
+ "reviewSkill":"design-taste",
+ "conflictRule":"One style-owner per product; reviewer suggests changes, never rewrites tokens without approval.",
+ "required": ["user-flows","responsive-screens","tokens","a11y-review","visual-diff","reduced-motion","real-data-density"]
+}

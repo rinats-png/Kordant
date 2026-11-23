@@ -1,0 +1,5 @@
+# Prompt: Bestehendes Repository übernehmen – ausschließlich lesend
+
+Analysiere das bestehende Repository systematisch, ohne Code, Lockfiles, Branches, Konfiguration oder Daten zu ändern. Inventarisiere Framework, Versionen, Entry Points, Module, API, Datenmodell, Rollen, Tests, CI, Deployment, Caddy/Docker, Secrets-Oberfläche, Bibliotheken, vorhandene Dokumentation und offene PRs (wenn freigegeben). Prüfe, ob Live-Stand und Git-Stand auseinanderfallen können; nicht behaupten, Live-System geprüft zu haben, wenn kein Zugriff besteht.
+
+Erstelle B0 Ziel & Zugänge, B1 Ist-Analyse und B2 Soll-Ist-Lücken nach dem idea-to-app Muster. Jeder Befund braucht ID, Severity, Dateipfad/Zeile, sicheren vs. vermuteten Status, Nutzer-/Datenwirkung, Reproduktion und konkrete Abhilfe. Secrets nur maskiert erwähnen, niemals ausschreiben. Bewerte Risiken nach Schaden, Eintrittswahrscheinlichkeit, Aufwand und Abhängigkeiten. Empfehle keinen Stackwechsel aus Stilgründen. Plane vor jeder Veränderung Charakterisierungstests. Gib einen priorisierten Plan mit kleinen, konfliktarmen Tasks, Tests und Freigabegrenzen.

@@ -1,0 +1,3 @@
+# Prompt: Threat Model / Security / Privacy
+
+Arbeite zuerst lesend. Leite Trust Boundaries, Datenarten, Rollen, externe Provider und die empfindlichsten Endpunkte aus dem tatsächlichen Code ab. Erstelle Bedrohungs-IDs mit Gegenmaßnahme und Negativtest. Prüfe insbesondere Objekt- und Tenant-Autorisierung, Reset/MFA/Session, API-Rate-Limits, Idempotenz, Payment-/Billing-Ereignisse, Uploads, Parsing, externe Requests, CORS/CSP, Secrets, GitHub Actions, Dependency-/Image-Risiken und sensible Telemetrie. Kennzeichne nicht prüfbare Infrastruktur-/Datenbankkonfiguration. Versioniere OWASP ASVS-Referenzen, keine pauschalen Zertifizierungen. Erstelle separat die DSGVO-/AVV-/DSFA-Fachprüfpunkte. Kein produktiver Eingriff und keine echten Secret-Werte in Reports.

@@ -1,0 +1,10 @@
+{
+ "schemaVersion":1,
+ "default":"manual",
+ "providers":{
+  "manual":{"requiresAuth":false,"realUsageMeasurement":false,"automaticActions":false},
+  "codex":{"requiresAuth":true,"realUsageMeasurement":false,"automaticActions":"explicit-opt-in-experimental","sandbox":"workspace-write-requested-not-verified"},
+  "claude-readonly":{"requiresAuth":true,"realUsageMeasurement":false,"automaticActions":"explicit-opt-in-experimental","permissions":"plan-only"}
+ },
+ "note":"Never claim hard provider cost caps before verified provider billing integration."
+}

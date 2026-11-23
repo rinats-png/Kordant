@@ -1,0 +1,41 @@
+{
+  "name": "kordant",
+  "version": "0.2.0",
+  "description": "Local-first agentic product engineering orchestration, evidence gates and operational blueprints",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "kordant": "./bin/kordant.mjs"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "check": "node scripts/self-check.mjs",
+    "demo": "node bin/kordant.mjs demo",
+    "help": "node bin/kordant.mjs --help",
+    "demo:safe": "node scripts/demo-end-to-end.mjs"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "agents/",
+    "skills/",
+    "workflows/",
+    "policies/",
+    "schemas/",
+    "docs/",
+    "templates/",
+    "infra/",
+    "integrations/",
+    "README.md",
+    "AGENTS.md",
+    "LICENSE",
+    "START_HIER.md",
+    "prompts/",
+    "scripts/",
+    "integrations/"
+  ],
+  "dependencies": {}
+}
