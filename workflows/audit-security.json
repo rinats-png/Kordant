@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "audit-security",
+  "title": "Strukturiertes Security-Audit",
+  "category": "security",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "inventory",
+      "title": "Assets, Daten und Trust Boundaries",
+      "agent": "security",
+      "skill": "security-threat-model",
+      "scope": [
+        "docs/security/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "scan",
+      "title": "Abhängigkeiten, Code, Secrets und Konfiguration",
+      "agent": "security",
+      "skill": "security-scan",
+      "scope": [
+        "docs/security/"
+      ],
+      "dependsOn": [
+        "inventory"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "authz",
+      "title": "Berechtigungsmatrix und Negativtests",
+      "agent": "qa",
+      "skill": "auth-identity",
+      "scope": [
+        "tests/security/"
+      ],
+      "dependsOn": [
+        "scan"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "report",
+      "title": "Belege, Schweregrade und Maßnahmenbericht",
+      "agent": "reviewer",
+      "skill": "compliance-evidence",
+      "scope": [
+        "docs/security/"
+      ],
+      "dependsOn": [
+        "authz"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

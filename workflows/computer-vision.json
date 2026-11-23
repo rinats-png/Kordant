@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "computer-vision",
+  "title": "Pose-Tracking und Computer Vision",
+  "category": "ai",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "scope",
+      "title": "Datenschutz, Kamera und Modellziele",
+      "agent": "product",
+      "skill": "computer-vision",
+      "scope": [
+        "docs/cv/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "eval",
+      "title": "Daten-/Bewegungstestset, Performance",
+      "agent": "ai-engineer",
+      "skill": "evaluation",
+      "scope": [
+        "tests/cv/"
+      ],
+      "dependsOn": [
+        "scope"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "impl",
+      "title": "Inferenz- und Trackingpipeline",
+      "agent": "ai-engineer",
+      "skill": "computer-vision",
+      "scope": [
+        "src/cv/"
+      ],
+      "dependsOn": [
+        "eval"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "review",
+      "title": "Privacy, Geräte- und Modelltests",
+      "agent": "reviewer",
+      "skill": "code-review",
+      "scope": [
+        "docs/reviews/"
+      ],
+      "dependsOn": [
+        "impl"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

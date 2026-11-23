@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "billing",
+  "title": "SaaS-Abrechnung und Tarife",
+  "category": "business",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "model",
+      "title": "Tarife, Zustimmung, Ereignisse, Invarianten",
+      "agent": "product",
+      "skill": "billing-saas",
+      "scope": [
+        "docs/billing/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "tests",
+      "title": "Testfälle für Events, Rückerstattung, Zeitzonen",
+      "agent": "qa",
+      "skill": "unit-tests",
+      "scope": [
+        "tests/billing/"
+      ],
+      "dependsOn": [
+        "model"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "build",
+      "title": "Serverseitige unveränderliche Abrechnung",
+      "agent": "backend-engineer",
+      "skill": "billing-saas",
+      "scope": [
+        "src/billing/"
+      ],
+      "dependsOn": [
+        "tests"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "review",
+      "title": "Security, Kosten, Rechtsprüfung",
+      "agent": "reviewer",
+      "skill": "code-review",
+      "scope": [
+        "docs/reviews/"
+      ],
+      "dependsOn": [
+        "build"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

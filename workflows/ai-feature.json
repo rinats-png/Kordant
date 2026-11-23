@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "ai-feature",
+  "title": "KI-Funktion sicher entwickeln",
+  "category": "ai",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "define",
+      "title": "Use Case, Datenklassen und Kostenlimits",
+      "agent": "ai-engineer",
+      "skill": "ai-safety",
+      "scope": [
+        "docs/ai/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "evals",
+      "title": "Eval-Goldenset und Negativtests",
+      "agent": "qa",
+      "skill": "evaluation",
+      "scope": [
+        "tests/ai/"
+      ],
+      "dependsOn": [
+        "define"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "build",
+      "title": "Gateway, Schema-Validation und Rate-Limits",
+      "agent": "ai-engineer",
+      "skill": "backend",
+      "scope": [
+        "src/ai/"
+      ],
+      "dependsOn": [
+        "evals"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "review",
+      "title": "Prompt Injection, PII, Kosten, Rechtscheck",
+      "agent": "security",
+      "skill": "ai-safety",
+      "scope": [
+        "docs/ai/"
+      ],
+      "dependsOn": [
+        "build"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

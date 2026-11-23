@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "go-to-market",
+  "title": "Vermarktung und Kundenbetrieb",
+  "category": "business",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "position",
+      "title": "Positionierung und Zielgruppe validieren",
+      "agent": "growth",
+      "skill": "market-validation",
+      "scope": [
+        "docs/growth/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "pricing",
+      "title": "Wirtschaftlichkeit und Preismodell",
+      "agent": "finance",
+      "skill": "pricing",
+      "scope": [
+        "docs/growth/"
+      ],
+      "dependsOn": [
+        "position"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "support",
+      "title": "Onboarding, FAQ und Support",
+      "agent": "growth",
+      "skill": "support-success",
+      "scope": [
+        "docs/support/"
+      ],
+      "dependsOn": [
+        "pricing"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "launch",
+      "title": "Landingpage und messbarer Launch",
+      "agent": "growth",
+      "skill": "marketing-launch",
+      "scope": [
+        "docs/growth/"
+      ],
+      "dependsOn": [
+        "support"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

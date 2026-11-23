@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "data-import",
+  "title": "Datenimport mit KI-Unterstützung",
+  "category": "engineering",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "contract",
+      "title": "Importverträge, Quellen und Datenschutz",
+      "agent": "architect",
+      "skill": "data-import",
+      "scope": [
+        "docs/import/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "tests",
+      "title": "Negativtest-Korpus und Excel-Datumsfälle",
+      "agent": "qa",
+      "skill": "unit-tests",
+      "scope": [
+        "tests/import/"
+      ],
+      "dependsOn": [
+        "contract"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "parser",
+      "title": "Parser/Validierung/Pacing mit Limits",
+      "agent": "backend-engineer",
+      "skill": "data-import",
+      "scope": [
+        "src/import/"
+      ],
+      "dependsOn": [
+        "tests"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "review",
+      "title": "Security, Dubletten und Mandantentrennung",
+      "agent": "reviewer",
+      "skill": "code-review",
+      "scope": [
+        "docs/reviews/"
+      ],
+      "dependsOn": [
+        "parser"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

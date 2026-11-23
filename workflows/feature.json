@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "id": "feature",
+  "title": "Abgegrenztes Feature mit TDD",
+  "category": "engineering",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "contract",
+      "title": "Akzeptanzkriterien und API-/UI-Verträge",
+      "agent": "architect",
+      "skill": "api-contracts",
+      "scope": [
+        "docs/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "tests",
+      "title": "Failing Tests und Berechtigungstests",
+      "agent": "qa",
+      "skill": "unit-tests",
+      "scope": [
+        "tests/"
+      ],
+      "dependsOn": [
+        "contract"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "implementation",
+      "title": "Feature im isolierten Branch bauen",
+      "agent": "engineer",
+      "skill": "implementation",
+      "scope": [
+        "src/"
+      ],
+      "dependsOn": [
+        "tests"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "review",
+      "title": "Unabhängige Analyse des Diffs",
+      "agent": "reviewer",
+      "skill": "code-review",
+      "scope": [
+        "docs/reviews/"
+      ],
+      "dependsOn": [
+        "implementation"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "integration",
+      "title": "Integration und Regression",
+      "agent": "qa",
+      "skill": "e2e-playwright",
+      "scope": [
+        "tests/"
+      ],
+      "dependsOn": [
+        "review"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    }
+  ]
+}

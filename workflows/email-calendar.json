@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "email-calendar",
+  "title": "E-Mail und Kalenderprodukt",
+  "category": "engineering",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "contract",
+      "title": "Mail/Calendar-Protokolle und Rechte",
+      "agent": "architect",
+      "skill": "email-calendar",
+      "scope": [
+        "docs/mail/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "sync",
+      "title": "IMAP/SMTP/CalDAV Sync und Fehlerpfade",
+      "agent": "backend-engineer",
+      "skill": "email-calendar",
+      "scope": [
+        "src/mail/"
+      ],
+      "dependsOn": [
+        "contract"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "test",
+      "title": "Tokenrotation, Mail-Sicherheit, Zeitkonflikte",
+      "agent": "qa",
+      "skill": "unit-tests",
+      "scope": [
+        "tests/mail/"
+      ],
+      "dependsOn": [
+        "sync"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "review",
+      "title": "Privacy- und Security-Review",
+      "agent": "security",
+      "skill": "privacy-dsgvo",
+      "scope": [
+        "docs/reviews/"
+      ],
+      "dependsOn": [
+        "test"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}
