@@ -4,7 +4,7 @@
 
 KORDANT ist ein **lokal ausführbares, herstellerunabhängiges Engineering-Harness** für Produktplanung, Agentensteuerung, versionierte Skills, testbare Workflows, Nachweise, Sicherheitsgates und einen dokumentierten Weg bis zur eigenen VPS-Infrastruktur. Es ist bewusst kein unkontrollierter „baue alles automatisch“-Button.
 
-> **Status 0.2.0 / Referenzimplementierung**: Die Kern-CLI, Workflow-DAGs, Taskverwaltung, Schreibbereich-Kollisionsschutz, Hash-Nachweise, statische Audits, Prompt-Erzeugung, Kostenjournal, Read-only-Dashboard, Gateway-Prüfungen und Deploy-/Migrationspläne sind implementiert und lokal testbar. **Nicht** implementiert oder extern bestätigt sind ein autonomer Cloud-Runner mit garantierter Sandbox, API-Abrechnung über Provider, echte Serverbereitstellung, kryptografische Audit-Logs, rechtsverbindliche Compliance-Freigaben und ein produktionsreifes Multi-User-Dashboard. Production ist absichtlich fail-closed.
+> **Status 0.3.0 / Referenzimplementierung**: Die Kern-CLI, Workflow-DAGs, Taskverwaltung, Schreibbereich-Kollisionsschutz, Hash-Nachweise, statische Audits, Prompt-Erzeugung, Kostenjournal, Read-only-Dashboard, Gateway-Prüfungen und Deploy-/Migrationspläne sind implementiert und lokal testbar. **Nicht** implementiert oder extern bestätigt sind ein autonomer Cloud-Runner mit garantierter Sandbox, API-Abrechnung über Provider, echte Serverbereitstellung, kryptografische Audit-Logs, rechtsverbindliche Compliance-Freigaben und ein produktionsreifes Multi-User-Dashboard. Production ist absichtlich fail-closed.
 
 ## Inhalt
 
@@ -136,6 +136,10 @@ Weitere Informationen: [Technischer Gesamtplan](docs/MASTERBLUEPRINT.md), [Statu
 
 **Lizenz:** MIT für den hier geschriebenen KORDANT-Code. Drittanbieterprojekte besitzen ihre eigenen Lizenzen.
 
-## Anbieterneutral (v0.2.0)
+## Anbieterneutral (v0.3.0)
 
 Siehe [Provider-neutrales Deployment](docs/DEPLOYMENT_PROVIDER_NEUTRAL.md). Die standardmäßige `deploy plan`/`migrate plan`-Ausgabe ist herstellerunabhängig; IONOS existiert nur noch als optionales Legacy-Beispiel. Neue CLI-Befehle: `plan import`, `trace`, `journal seal/verify`, `skill pin/verify`, `git inspect`, `eval run`, `capability check` und `recovery inspect/block`.
+
+## 0.3.0 – Lokale Agentenarbeitsplätze und Nachweise
+
+Neue Befehle: `worktree plan|create|status`, `build attest|verify`, `security sarif`, `github checks` (read-only). Siehe [Release-Notes](docs/RELEASE_NOTES_0.3.0.md) und [Security- und Provenance-Grenzen](docs/SECURITY_RELEASE_PROVENANCE.md). Worktrees sind **keine** Sandbox.
