@@ -26,15 +26,24 @@ import {inspectGit,verifyCommit} from '../src/forge.mjs';
 import {evaluateRuns} from '../src/evals.mjs';
 import {assessAction} from '../src/capabilities.mjs';
 import {inspectRecovery,blockStaleTask} from '../src/recovery.mjs';
+import {worktreePlan,createTaskWorktree,worktreeStatus} from '../src/worktrees.mjs';
+import {createBuildAttestation,verifyBuildAttestation} from '../src/attest.mjs';
+import {evaluateSarif} from '../src/security-reports.mjs';
+import {observeGitHubChecks} from '../src/github-evidence.mjs';
 const args=argumentsOf(process.argv.slice(2));const [cmd,sub,third]=args._;const dir=path.resolve(args.project??'.');
-const help=`KORDANT v0.2.0 · Local-first Engineering Framework\n\nStart:\n  kordant init [ordner] --name "Meine App" --kind saas --risk 2 --budget 30\n  kordant adopt [repo-ordner] --name "Bestehende App"\n  kordant doctor | status | dashboard [--port 3333]\n  kordant plan scaffold [--mode full|lite] | plan status | plan handoff [--draft]\n  kordant starter list | starter create node-web --out ../web-demo\n  kordant workflow list | workflow start new-product\n  kordant schedule [--max 2] | report\n  kordant task list | task next | task add --title "..." [--scope src/]\n  kordant task claim <id> | task block <id> --reason "..." | task release <id>\n  kordant task evidence <id> --type test --file .kordant/reports/test.txt\n  kordant task done <id>\n  kordant agent list | agent prompt <id> | agent run <id> [--provider codex] [--execute]\n  kordant skill list | skill inspect /pfad/zu/skill | gate <handoff|merge|staging|release|production>\n  kordant audit [ordner] | deploy plan --domain app.example.com --target staging\n  kordant migrate plan | model route [--risk 2 --complexity 3]\n  kordant cost record --provider vendor --model id --input 1000 --output 500 --rate-input 1 --rate-output 4\n  kordant idea info | idea install --from /pfad | idea install --online\n  kordant idea check <slug> (nur Anzeige, --execute braucht Policy-Freigabe)
+const help=`KORDANT v0.3.0 · Local-first Engineering Framework\n\nStart:\n  kordant init [ordner] --name "Meine App" --kind saas --risk 2 --budget 30\n  kordant adopt [repo-ordner] --name "Bestehende App"\n  kordant doctor | status | dashboard [--port 3333]\n  kordant plan scaffold [--mode full|lite] | plan status | plan handoff [--draft]\n  kordant starter list | starter create node-web --out ../web-demo\n  kordant workflow list | workflow start new-product\n  kordant schedule [--max 2] | report\n  kordant task list | task next | task add --title "..." [--scope src/]\n  kordant task claim <id> | task block <id> --reason "..." | task release <id>\n  kordant task evidence <id> --type test --file .kordant/reports/test.txt\n  kordant task done <id>\n  kordant agent list | agent prompt <id> | agent run <id> [--provider codex] [--execute]\n  kordant skill list | skill inspect /pfad/zu/skill | gate <handoff|merge|staging|release|production>\n  kordant audit [ordner] | deploy plan --domain app.example.com --target staging\n  kordant migrate plan | model route [--risk 2 --complexity 3]\n  kordant cost record --provider vendor --model id --input 1000 --output 500 --rate-input 1 --rate-output 4\n  kordant idea info | idea install --from /pfad | idea install --online\n  kordant idea check <slug> (nur Anzeige, --execute braucht Policy-Freigabe)
   kordant plan import /pfad/idea-to-app/projekte/app | trace /pfad/plan
   kordant journal seal [--key-external] | journal verify --file <seal.json>
   kordant skill pin /pfad/skill --name x --source URL --commit SHA --license MIT --by operator
   kordant skill verify /pfad/skill --name x | git inspect <repo> | git verify <sha>
   kordant eval run --file evaluation.json
   kordant capability check repo.write --actor agent --environment development
-  kordant recovery inspect | recovery block <TASK> --by <operator> --minutes 60\n\nAlle Eingriffe in externe Systeme sind standardmäßig deaktiviert. --json für maschinenlesbare Ausgabe.\n`;
+  kordant recovery inspect | recovery block <TASK> --by <operator> --minutes 60
+  kordant worktree plan|create|status <TASK> [--execute]
+  kordant build attest --artifact file --tests file --review file --author A --reviewer B
+  kordant build verify --file .kordant/reports/build.json
+  kordant security sarif --file scanner.sarif.json [--block-at high]
+  kordant github checks --owner OWNER --repo REPO --sha COMMIT (read-only, GITHUB_TOKEN)\n\nAlle Eingriffe in externe Systeme sind standardmäßig deaktiviert. --json für maschinenlesbare Ausgabe.\n`;
 async function main(){if(!cmd||cmd==='help'||cmd==='--help'||cmd==='-h'){print(help);return;}
  let out;const project=()=>loadProject(dir);
  switch(cmd){
@@ -73,6 +82,10 @@ async function main(){if(!cmd||cmd==='help'||cmd==='--help'||cmd==='-h'){print(h
  case 'trace':out=extractTraceability(sub??dir);break;
  case 'journal':{if(sub==='seal')out=sealJournal(project());else if(sub==='verify'){if(!args.file)throw new Error('--file ist erforderlich');out=verifyJournal(project(),readJson(path.resolve(args.file)));if(!out.verified)process.exitCode=1;}else throw new Error('journal seal | verify --file');break;}
  case 'git':{if(sub==='inspect')out=inspectGit(third??dir);else if(sub==='verify')out=verifyCommit(dir,third);else throw new Error('git inspect | verify <sha>');break;}
+ case 'worktree':{if(sub==='plan')out=worktreePlan(project(),third,{baseRef:args.base??'HEAD'});else if(sub==='create')out=createTaskWorktree(project(),third,{baseRef:args.base??'HEAD',execute:args.execute===true});else if(sub==='status')out=worktreeStatus(project(),third);else throw new Error('worktree plan|create|status <TASK>');break;}
+ case 'build':{if(sub==='attest')out=createBuildAttestation(project(),{artifact:args.artifact,tests:args.tests,review:args.review,author:args.author,reviewer:args.reviewer});else if(sub==='verify')out=verifyBuildAttestation(project(),args.file);else throw new Error('build attest|verify');break;}
+ case 'github':{if(sub!=='checks')throw new Error('github checks');out=await observeGitHubChecks({owner:args.owner,repo:args.repo,sha:args.sha,token:process.env.GITHUB_TOKEN});break;}
+ case 'security':{if(sub!=='sarif'||!args.file)throw new Error('security sarif --file <sarif.json>');out=evaluateSarif(project(),args.file,{blockAt:args['block-at']??'high'});break;}
  case 'capability':{if(sub!=='check')throw new Error('capability check <action>');out=assessAction(third,{projectConfig:project().config,actor:args.actor??'agent',environment:args.environment??'development',scope:args.scope?String(args.scope).split(','):[],operatorVerified:false,sandboxVerified:false});break;}
  case 'recovery':{if(sub==='inspect')out=inspectRecovery(project(),{maxAgeMinutes:args.minutes??60});else if(sub==='block')out=blockStaleTask(project(),third,{maxAgeMinutes:args.minutes??60,operator:args.by});else throw new Error('recovery inspect | block <TASK> --by operator');break;}
  case 'eval':{if(sub!=='run'||!args.file)throw new Error('eval run --file <suite.json>');out=evaluateRuns(project(),args.file);break;}

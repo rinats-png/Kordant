@@ -1,3 +1,5 @@
+> **2026-11-23 · v0.3.0-Update:** Lokale Task-Worktrees (opt-in), Build-Provenance mit Hashprüfungen, SARIF-Auswertung und lesender GitHub-CI-Adapter ergänzt. Agenten-Sandbox, sichere Live-Deployments und externe Freigaben sind weiterhin nicht nachgewiesen. Siehe `docs/RELEASE_NOTES_0.3.0.md`.
+
 > **2026-11-23 · v0.2.0-Update:** Anbieterneutrale Plattformprofile und Migrationspläne implementiert; zusätzlicher idea-to-app-Markdown-Importer/Traceability-Report, Skill-Pinning, Journal-HMAC-Check, Evals, read-only Git-Inspektion, Fähigkeitsprüfung und operator-gesteuerte Recovery. Die darunter aufgeführten restlichen Plattform- und Produktionspunkte sind weiterhin offen; ein lokaler Test ist keine reale Produktionsabnahme.
 
 # KORDANT – Implementierungsstand und vollständige Roadmap
