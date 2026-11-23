@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "document-processing",
+  "title": "Sichere Dokument- und OCR-Pipeline",
+  "category": "engineering",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "risk",
+      "title": "Dateiformate, Sensitivität und Größenlimits",
+      "agent": "security",
+      "skill": "file-ocr",
+      "scope": [
+        "docs/files/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "contract",
+      "title": "Parsing, Fehlerreport, Preview und OCR",
+      "agent": "architect",
+      "skill": "pdf-documents",
+      "scope": [
+        "docs/files/"
+      ],
+      "dependsOn": [
+        "risk"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "implement",
+      "title": "Sicherer Parser mit Testkorpus",
+      "agent": "engineer",
+      "skill": "file-ocr",
+      "scope": [
+        "src/files/"
+      ],
+      "dependsOn": [
+        "contract"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "security",
+      "title": "Bombe-/PII-/Tenant- und Qualitätsprüfung",
+      "agent": "qa",
+      "skill": "security-scan",
+      "scope": [
+        "tests/files/"
+      ],
+      "dependsOn": [
+        "implement"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "extension",
+  "title": "Browser-Erweiterung entwickeln",
+  "category": "platform",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "scope",
+      "title": "Permissions, Host Permissions und Store",
+      "agent": "architect",
+      "skill": "browser-extension",
+      "scope": [
+        "docs/extension/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "prototype",
+      "title": "Manifest, UI, Sandbox, Storage",
+      "agent": "engineer",
+      "skill": "browser-extension",
+      "scope": [
+        "src/extension/"
+      ],
+      "dependsOn": [
+        "scope"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "tests",
+      "title": "Permissions, CSP, Update, Security",
+      "agent": "qa",
+      "skill": "unit-tests",
+      "scope": [
+        "tests/extension/"
+      ],
+      "dependsOn": [
+        "prototype"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "review",
+      "title": "Store-Review und Datenschutz",
+      "agent": "reviewer",
+      "skill": "legal-compliance",
+      "scope": [
+        "docs/reviews/"
+      ],
+      "dependsOn": [
+        "tests"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

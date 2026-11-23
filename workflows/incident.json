@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "incident",
+  "title": "Störung oder Sicherheitsvorfall",
+  "category": "operations",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "triage",
+      "title": "Schweregrad, Timeline und Nutzerwirkung dokumentieren",
+      "agent": "sre",
+      "skill": "incident-response",
+      "scope": [
+        "docs/incident/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "contain",
+      "title": "Sichere Eindämmungsoptionen mit Freigabe",
+      "agent": "security",
+      "skill": "security-threat-model",
+      "scope": [
+        "docs/incident/"
+      ],
+      "dependsOn": [
+        "triage"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "fix",
+      "title": "Abgestimmten Fix isoliert umsetzen",
+      "agent": "engineer",
+      "skill": "implementation",
+      "scope": [
+        "src/"
+      ],
+      "dependsOn": [
+        "contain"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "postmortem",
+      "title": "Root Cause, Schutzmaßnahmen, Kommunikation",
+      "agent": "reviewer",
+      "skill": "incident-response",
+      "scope": [
+        "docs/incident/"
+      ],
+      "dependsOn": [
+        "fix"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

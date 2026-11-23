@@ -1,0 +1,3 @@
+# Prompt: SaaS-Billing und Tarifsicherheit
+
+Modelliere verbindliche Tarife, Zustimmung, Pilot, Tarifwechsel, Rechnung, Rückerstattung und Vertragsänderungen als versionierte, unveränderliche, zeitlich wirksame Events. Alle Geldbeträge in Integer-Cent, keine Float-Abrechnung. Kein vom Client bestimmter Preis oder Plan. Zahlungswebhooks mit Signatur, Ablauf, Wiederholschutz, Idempotenz und atomarer Buchung. Negative Tests: Null vs. Zero, doppelte Webhooks, verlorene Events, Konflikte, rückwirkende Korrekturen, Europe/Berlin DST und getrennte Tenantdaten. Neben technischen Tests sind steuer-/vertragsrechtliche Aufgaben dem Betreiber zugeordnet. Release erst bei durchgängiger Rückverfolgung und unabhängiger Prüfung.

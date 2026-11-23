@@ -1,0 +1,21 @@
+name: KORDANT Core CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # Pin reviewed full SHAs before production deployment. These are proven 2025 v4 pins;
+      # CI must upgrade them to Node24-runtime major versions after verifying their SHAs.
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - run: npm test
+      - run: npm run check

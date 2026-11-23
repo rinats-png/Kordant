@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "id": "design-refresh",
+  "title": "Hallmark-Design und Taste-Review",
+  "category": "design",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "inventory",
+      "title": "Ist-UI, Designschuld und UX prüfen",
+      "agent": "designer",
+      "skill": "ux-flows",
+      "scope": [
+        "design/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "system",
+      "title": "Hallmark als führendes System definieren",
+      "agent": "designer",
+      "skill": "design-hallmark",
+      "scope": [
+        "design/"
+      ],
+      "dependsOn": [
+        "inventory"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "build",
+      "title": "Screens und Komponenten umsetzen",
+      "agent": "frontend-engineer",
+      "skill": "design-implementation",
+      "scope": [
+        "src/ui/"
+      ],
+      "dependsOn": [
+        "system"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "taste",
+      "title": "Separaten Taste-Review durchführen",
+      "agent": "reviewer",
+      "skill": "design-taste",
+      "scope": [
+        "docs/reviews/"
+      ],
+      "dependsOn": [
+        "build"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "verify",
+      "title": "Visuelle Regression, WCAG und Responsive",
+      "agent": "qa",
+      "skill": "visual-regression",
+      "scope": [
+        "tests/visual/"
+      ],
+      "dependsOn": [
+        "taste"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    }
+  ]
+}

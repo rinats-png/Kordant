@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "id": "compliance",
+  "title": "Datenschutz und Compliance-Review",
+  "category": "compliance",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "inventory",
+      "title": "Rechtsgrundlagen und Datenflüsse inventarisieren",
+      "agent": "legal",
+      "skill": "privacy-dsgvo",
+      "scope": [
+        "docs/privacy/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "controls",
+      "title": "Rechte, Löschung, Sicherheit und Nachweise",
+      "agent": "security",
+      "skill": "security-threat-model",
+      "scope": [
+        "docs/privacy/"
+      ],
+      "dependsOn": [
+        "inventory"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "review",
+      "title": "Externe Prüfliste und Lückenbericht",
+      "agent": "reviewer",
+      "skill": "legal-compliance",
+      "scope": [
+        "docs/privacy/"
+      ],
+      "dependsOn": [
+        "controls"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

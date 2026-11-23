@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "id": "bugfix",
+  "title": "Fehleranalyse bis Regressionstest",
+  "category": "engineering",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "reproduce",
+      "title": "Fehler reproduzieren und Ursache eingrenzen",
+      "agent": "analyst",
+      "skill": "unit-tests",
+      "scope": [
+        "tests/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "fix",
+      "title": "Minimalen Fix mit Regressionstest schreiben",
+      "agent": "engineer",
+      "skill": "implementation",
+      "scope": [
+        "src/"
+      ],
+      "dependsOn": [
+        "reproduce"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "review",
+      "title": "Review und Regressionsprüfung",
+      "agent": "reviewer",
+      "skill": "code-review",
+      "scope": [
+        "docs/reviews/"
+      ],
+      "dependsOn": [
+        "fix"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

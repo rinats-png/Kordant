@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "e-invoice",
+  "title": "E-Rechnungssystem",
+  "category": "business",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "rules",
+      "title": "Normen, Formate, Steuern, Revision",
+      "agent": "legal",
+      "skill": "e-invoicing",
+      "scope": [
+        "docs/invoicing/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "schema",
+      "title": "Korrektur- und Datenmodell",
+      "agent": "architect",
+      "skill": "data-modeling",
+      "scope": [
+        "docs/invoicing/"
+      ],
+      "dependsOn": [
+        "rules"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "build",
+      "title": "Rechnungserstellung und Schemaexport",
+      "agent": "engineer",
+      "skill": "e-invoicing",
+      "scope": [
+        "src/invoicing/"
+      ],
+      "dependsOn": [
+        "schema"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "verify",
+      "title": "Validierung, Steuern, Rundung und Sicherheit",
+      "agent": "qa",
+      "skill": "unit-tests",
+      "scope": [
+        "tests/invoicing/"
+      ],
+      "dependsOn": [
+        "build"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    }
+  ]
+}

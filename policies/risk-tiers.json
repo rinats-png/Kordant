@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "tiers": {
+    "1": {"name": "niedrig", "examples": ["lokale Infoseite", "Prototyp ohne echte Nutzerdaten"], "controls": ["build", "unit-tests", "secrets", "accessibility-basic"], "approval": ["owner before public launch"]},
+    "2": {"name": "mittel", "examples": ["Nutzerkonten", "SaaS mit normalen personenbezogenen Daten"], "controls": ["all tier 1", "authn-authz", "rate-limits", "e2e", "privacy", "offsite-backup", "restore-test", "independent-review"], "approval": ["owner", "security review"]},
+    "3": {"name": "hoch", "examples": ["Gesundheitsdaten", "Live-Standorttracking", "besondere personenbezogene Daten", "regulierte Branchen"], "controls": ["all tier 2", "threat-model", "deep-dynamic-testing", "data-protection-review", "external-expert-where-required", "incident-plan", "migration-restore-drill"], "approval": ["owner", "independent technical review", "qualified external review as required", "separate legal/sector review"]}
+  },
+  "note": "Risk tiers guide diligence and never override statutory duties."
+}

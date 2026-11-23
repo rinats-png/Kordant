@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "id": "release",
+  "title": "Reproduzierbarer Release",
+  "category": "delivery",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "freeze",
+      "title": "Scope, Testabdeckung und Version einfrieren",
+      "agent": "orchestrator",
+      "skill": "ci-cd",
+      "scope": [
+        "docs/release/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "checks",
+      "title": "Tests, Security, Privacy und SBOM prüfen",
+      "agent": "qa",
+      "skill": "supply-chain",
+      "scope": [
+        "docs/release/"
+      ],
+      "dependsOn": [
+        "freeze"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "staging",
+      "title": "Staging-Abnahme mit Testdaten",
+      "agent": "qa",
+      "skill": "e2e-playwright",
+      "scope": [
+        "tests/staging/"
+      ],
+      "dependsOn": [
+        "checks"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "approval",
+      "title": "Dokumentiertes Release-Gate",
+      "agent": "reviewer",
+      "skill": "compliance-evidence",
+      "scope": [
+        "docs/release/"
+      ],
+      "dependsOn": [
+        "staging"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "release",
+      "title": "Deployplan und operativen Handoff dokumentieren",
+      "agent": "sre",
+      "skill": "ionos-deploy",
+      "scope": [
+        "infra/"
+      ],
+      "dependsOn": [
+        "approval"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

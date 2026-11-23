@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "performance",
+  "title": "Performance-Engpässe verstehen",
+  "category": "quality",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "baseline",
+      "title": "Messbare Performance-SLOs festlegen",
+      "agent": "architect",
+      "skill": "performance",
+      "scope": [
+        "docs/performance/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "profile",
+      "title": "Profiling, Last- und Ressourcentests",
+      "agent": "qa",
+      "skill": "performance",
+      "scope": [
+        "tests/performance/"
+      ],
+      "dependsOn": [
+        "baseline"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "optimize",
+      "title": "Kosten-Nutzen-basierte Optimierung",
+      "agent": "engineer",
+      "skill": "implementation",
+      "scope": [
+        "src/"
+      ],
+      "dependsOn": [
+        "profile"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "verify",
+      "title": "Before/After-Messung und Regression",
+      "agent": "reviewer",
+      "skill": "performance",
+      "scope": [
+        "docs/performance/"
+      ],
+      "dependsOn": [
+        "optimize"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "geospatial",
+  "title": "Standortbasierte App sicher bauen",
+  "category": "platform",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "scope",
+      "title": "GPS-Zweck, Einwilligung, Datenarten",
+      "agent": "product",
+      "skill": "geospatial-gps",
+      "scope": [
+        "docs/geo/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "architecture",
+      "title": "Provider, Auth, Echtzeit und Routen",
+      "agent": "architect",
+      "skill": "realtime-systems",
+      "scope": [
+        "docs/geo/"
+      ],
+      "dependsOn": [
+        "scope"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "build",
+      "title": "Standortpfad mit serverseitigen Rechten",
+      "agent": "engineer",
+      "skill": "geospatial-gps",
+      "scope": [
+        "src/geo/"
+      ],
+      "dependsOn": [
+        "architecture"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "test",
+      "title": "Rechte, Spoofing, Offline, Privacy",
+      "agent": "qa",
+      "skill": "unit-tests",
+      "scope": [
+        "tests/geo/"
+      ],
+      "dependsOn": [
+        "build"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    }
+  ]
+}

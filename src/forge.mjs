@@ -1,0 +1,7 @@
+import {spawnSync} from 'node:child_process';
+import path from 'node:path';
+import fs from 'node:fs';
+
+function git(root,args){const proc=spawnSync('git',['-C',root,...args],{encoding:'utf8',timeout:10000,maxBuffer:1024*1024,env:{PATH:process.env.PATH??'',HOME:process.env.HOME??'',GIT_OPTIONAL_LOCKS:'0',GIT_TERMINAL_PROMPT:'0'}});if(proc.status!==0)throw new Error(`Git-Leseprüfung fehlgeschlagen (${proc.status}): ${(proc.stderr??'').slice(0,200)}`);return (proc.stdout??'').trim();}
+export function inspectGit(dir){const root=path.resolve(dir);if(!fs.existsSync(root))throw new Error('Repo nicht vorhanden');const top=git(root,['rev-parse','--show-toplevel']);if(top!==root)throw new Error('Nur das Git-Root darf inspiziert werden');const branch=git(root,['rev-parse','--abbrev-ref','HEAD']);const head=git(root,['rev-parse','HEAD']);const status=git(root,['status','--porcelain=v1','--untracked-files=no']);const remotes=git(root,['remote']).split('\n').filter(Boolean);return {root,branch,head,cleanTracked:status.length===0,changedTracked:status?status.split('\n').length:0,remotes,note:'Reine lokale Git-Leseprüfung. Keine Authentifizierung, keine Remote-Statusprüfung, keine PR- oder Releasefreigabe.'};}
+export function verifyCommit(dir,sha){if(!/^[0-9a-f]{40}$/i.test(sha))throw new Error('40-stellige Commit-SHA erforderlich');const root=path.resolve(dir);const resolved=git(root,['rev-parse','--verify',`${sha}^{commit}`]);return {matched:resolved.toLowerCase()===sha.toLowerCase(),sha:resolved,root};}

@@ -1,0 +1,13 @@
+{
+ "$schema":"https://json-schema.org/draft/2020-12/schema",
+ "title":"KORDANT task","type":"object","additionalProperties":true,
+ "required":["id","title","status","agent","skill","scope","dependsOn","requiredEvidence"],
+ "properties":{
+  "id":{"type":"string","minLength":3},"title":{"type":"string","minLength":1},
+  "status":{"enum":["pending","in_progress","blocked","done","cancelled"]},
+  "agent":{"type":"string"},"skill":{"type":"string"},
+  "scope":{"type":"array","minItems":1,"items":{"type":"string"}},
+  "dependsOn":{"type":"array","items":{"type":"string"}},
+  "requiredEvidence":{"type":"array","items":{"enum":["artifact","test","review","security","build","staging","backup","rollback","approval","deployment","migration","design","privacy","source","operations"]}}
+ }
+}

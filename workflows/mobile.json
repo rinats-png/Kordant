@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "mobile",
+  "title": "App Store und native Plattform",
+  "category": "platform",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "strategy",
+      "title": "PWA, Wrapper oder nativ abwägen",
+      "agent": "architect",
+      "skill": "mobile-app",
+      "scope": [
+        "docs/mobile/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "flows",
+      "title": "Mobile UX, Offline und Zugänglichkeit",
+      "agent": "designer",
+      "skill": "accessibility",
+      "scope": [
+        "design/mobile/"
+      ],
+      "dependsOn": [
+        "strategy"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "build",
+      "title": "Plattform-Build und Gerätefunktion",
+      "agent": "engineer",
+      "skill": "mobile-app",
+      "scope": [
+        "src/mobile/"
+      ],
+      "dependsOn": [
+        "flows"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "store",
+      "title": "Signierung, Richtlinien und Store-Nachweise",
+      "agent": "reviewer",
+      "skill": "legal-compliance",
+      "scope": [
+        "docs/store/"
+      ],
+      "dependsOn": [
+        "build"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

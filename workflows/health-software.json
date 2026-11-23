@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "health-software",
+  "title": "Gesundheits- und Clinical-Software",
+  "category": "compliance",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "classification",
+      "title": "Medizinprodukt- und Datenrisiko klären",
+      "agent": "legal",
+      "skill": "regulated-health",
+      "scope": [
+        "docs/health/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "requirements",
+      "title": "Fachanwendungs- und Sicherheitsanforderungen",
+      "agent": "product",
+      "skill": "product-requirements",
+      "scope": [
+        "docs/health/"
+      ],
+      "dependsOn": [
+        "classification"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "architecture",
+      "title": "Privacy, Authz, Daten und Integration",
+      "agent": "architect",
+      "skill": "security-threat-model",
+      "scope": [
+        "docs/health/"
+      ],
+      "dependsOn": [
+        "requirements"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "external",
+      "title": "Unabhängige Fach- und Rechtsprüfung",
+      "agent": "reviewer",
+      "skill": "legal-compliance",
+      "scope": [
+        "docs/reviews/"
+      ],
+      "dependsOn": [
+        "architecture"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "policy": "Registry entries describe possible adapters. Only bundled modules named IMPLEMENTED may be used without further integration; foreign skills require review.",
+  "sources": [
+    {
+      "id": "idea-to-app", "role": "product-planning", "repository": "https://github.com/rinats-png/idea-to-app", "version": "1.2.0",
+      "commit": "00dc23b8f3a20a829f07bd3b7411d6b7a0e12bda", "license": "MIT", "status": "OPTIONAL-IMPORT-IMPLEMENTED", "automaticExecution": false,
+      "note": "Offline integration is available; upstream contents are not bundled. Local import remains unverified unless independently compared."
+    },
+    {
+      "id":"hallmark", "role":"design-system", "repository":"https://github.com/Nutlope/hallmark", "license":"VERIFY", "status":"DESIGN-WORKFLOW-ONLY", "automaticExecution": false,
+      "note":"Leading design direction; source, version, license, scripts and rights must be verified before installation."
+    },
+    {
+      "id":"taste-skill", "role":"design-review", "repository":"https://github.com/tasteskill/tasteskill", "license":"VERIFY", "status":"DESIGN-WORKFLOW-ONLY", "automaticExecution":false,
+      "note":"Separated design review after Hallmark, not a second parallel style owner."
+    },
+    {"id":"superpowers", "role":"engineering-discipline", "repository":"https://github.com/obra/superpowers", "license":"VERIFY", "status":"COMPATIBILITY-DOCUMENTED", "automaticExecution":false},
+    {"id":"spec-kit", "role":"requirements", "repository":"https://github.com/github/spec-kit", "license":"VERIFY", "status":"COMPATIBILITY-DOCUMENTED", "automaticExecution":false},
+    {"id":"playwright", "role":"browser-test", "repository":"https://github.com/microsoft/playwright", "license":"VERIFY", "status":"PLANNED", "automaticExecution":false},
+    {"id":"trivy", "role":"supply-chain", "repository":"https://github.com/aquasecurity/trivy", "license":"VERIFY", "status":"PLANNED", "automaticExecution":false},
+    {"id":"gitleaks", "role":"secret-scan", "repository":"https://github.com/gitleaks/gitleaks", "license":"VERIFY", "status":"PLANNED", "automaticExecution":false},
+    {"id":"renovate", "role":"dependency-updates", "repository":"https://github.com/renovatebot/renovate", "license":"VERIFY", "status":"PLANNED", "automaticExecution":false},
+    {"id":"restic", "role":"backup", "repository":"https://github.com/restic/restic", "license":"VERIFY", "status":"EXAMPLE-ONLY", "automaticExecution":false},
+    {"id":"caddy", "role":"tls-proxy", "repository":"https://github.com/caddyserver/caddy", "license":"VERIFY", "status":"EXAMPLE-ONLY", "automaticExecution":false},
+    {"id":"docker", "role":"container-runtime", "repository":"https://github.com/docker/cli", "license":"VERIFY", "status":"EXAMPLE-ONLY", "automaticExecution":false},
+    {"id":"claude-code", "role":"agent-provider", "repository":"https://github.com/anthropics/claude-code", "license":"VERIFY", "status":"EXPERIMENTAL-OPT-IN", "automaticExecution":false},
+    {"id":"codex-cli", "role":"agent-provider", "repository":"https://github.com/openai/codex", "license":"VERIFY", "status":"EXPERIMENTAL-OPT-IN", "automaticExecution":false}
+  ]
+}

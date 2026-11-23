@@ -1,0 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {ROOT,exists,mkdir} from './util.mjs';
+export function listStarters(){return fs.readdirSync(path.join(ROOT,'templates','starters'),{withFileTypes:true}).filter(x=>x.isDirectory()).map(x=>({id:x.name,implemented:x.name==='node-web',description:x.name==='node-web'?'Lauffähiger Node-Web-Starter mit Tests':'Dokumentiertes Planungsprofil; kein ausführbarer Produktcode'}));}
+export function createStarter(name,destination){if(!/^[a-z0-9-]+$/.test(name))throw new Error('Ungültiger Starter');const root=path.join(ROOT,'templates','starters',name);if(!exists(root))throw new Error('Starter nicht vorhanden');const target=path.resolve(destination);if(exists(target)&&fs.readdirSync(target).length>0)throw new Error('Zielordner ist nicht leer; überschreibe keine bestehenden Projektdateien');mkdir(target);fs.cpSync(root,target,{recursive:true,force:false,errorOnExist:true});return {starter:name,path:target,implemented:name==='node-web',note:'Node-Web ist ein Demo-Starter, kein produktionsreifes SaaS.'};}

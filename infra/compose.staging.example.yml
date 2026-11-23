@@ -1,0 +1,39 @@
+# EXAMPLE ONLY: image and digest must be reviewed before use. Never run this against an existing stack without an inventory.
+name: kordant-example
+services:
+  app:
+    image: "${APP_IMAGE:?image-required}@${APP_DIGEST:?sha256-digest-required}"
+    user: "10001:10001"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    restart: unless-stopped
+    init: true
+    tmpfs:
+      - /tmp:rw,nosuid,noexec,size=64m
+    networks: [private]
+    pids_limit: 200
+    mem_limit: 512m
+    cpus: 1.0
+    expose: ["3000"]
+    # The image must provide and check its own health endpoint.
+  caddy:
+    image: "${CADDY_IMAGE:?pinned-caddy-image-required}"
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    networks: [private]
+    environment:
+      APP_DOMAIN: "${APP_DOMAIN:?domain-required}"
+    volumes:
+      - ./Caddyfile.example:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    security_opt: ["no-new-privileges:true"]
+networks:
+  private:
+    driver: bridge
+volumes:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "id": "adopt-project",
+  "title": "Bestehende Software geordnet übernehmen",
+  "category": "engineering",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "inventory",
+      "title": "Quellen, Nutzer und Live-Stand inventarisieren",
+      "agent": "analyst",
+      "skill": "architecture-recovery",
+      "scope": [
+        "docs/audit/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "audit",
+      "title": "Lesendes Repo-, Security- und Betriebs-Audit",
+      "agent": "security",
+      "skill": "security-scan",
+      "scope": [
+        "docs/audit/"
+      ],
+      "dependsOn": [
+        "inventory"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "characterize",
+      "title": "Bestehendes Verhalten mit Tests sichern",
+      "agent": "qa",
+      "skill": "unit-tests",
+      "scope": [
+        "tests/"
+      ],
+      "dependsOn": [
+        "audit"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "gap",
+      "title": "Soll/Ist-Abgleich und Maßnahmen priorisieren",
+      "agent": "product",
+      "skill": "product-requirements",
+      "scope": [
+        "docs/"
+      ],
+      "dependsOn": [
+        "audit"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "stabilize",
+      "title": "Kritische Risiken isoliert beheben",
+      "agent": "engineer",
+      "skill": "implementation",
+      "scope": [
+        "src/"
+      ],
+      "dependsOn": [
+        "characterize",
+        "gap"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "verify",
+      "title": "Unabhängige Regression und Security-Prüfung",
+      "agent": "reviewer",
+      "skill": "code-review",
+      "scope": [
+        "docs/reviews/"
+      ],
+      "dependsOn": [
+        "stabilize"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "release",
+      "title": "Staging-/Release-Freigabe vorbereiten",
+      "agent": "platform",
+      "skill": "ci-cd",
+      "scope": [
+        "docs/release/"
+      ],
+      "dependsOn": [
+        "verify"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

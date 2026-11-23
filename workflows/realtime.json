@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "realtime",
+  "title": "Echtzeit-App und Benachrichtigungen",
+  "category": "engineering",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "protocol",
+      "title": "Subscriptions, ACL, Zustandskonsistenz",
+      "agent": "architect",
+      "skill": "realtime-systems",
+      "scope": [
+        "docs/realtime/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "implement",
+      "title": "Subscriptions und Replay-Schutz",
+      "agent": "backend-engineer",
+      "skill": "realtime-systems",
+      "scope": [
+        "src/realtime/"
+      ],
+      "dependsOn": [
+        "protocol"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "push",
+      "title": "Notifications, Consent und Retry",
+      "agent": "engineer",
+      "skill": "notifications",
+      "scope": [
+        "src/notifications/"
+      ],
+      "dependsOn": [
+        "implement"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "test",
+      "title": "Backpressure, Reconnect, Auth und Zustellung",
+      "agent": "qa",
+      "skill": "performance",
+      "scope": [
+        "tests/realtime/"
+      ],
+      "dependsOn": [
+        "push"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    }
+  ]
+}

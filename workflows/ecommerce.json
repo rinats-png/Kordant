@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "ecommerce",
+  "title": "E-Commerce und Checkout",
+  "category": "business",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "rules",
+      "title": "Preise, Steuern, Inventar, Geschäftsregeln",
+      "agent": "product",
+      "skill": "ecommerce",
+      "scope": [
+        "docs/shop/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "transactions",
+      "title": "DB/PSP-Ereignisse und Contracts",
+      "agent": "architect",
+      "skill": "payments",
+      "scope": [
+        "docs/shop/"
+      ],
+      "dependsOn": [
+        "rules"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "build",
+      "title": "Checkout und Lagertransaktionen",
+      "agent": "backend-engineer",
+      "skill": "ecommerce",
+      "scope": [
+        "src/shop/"
+      ],
+      "dependsOn": [
+        "transactions"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "review",
+      "title": "Idempotenz, Refunds, Security",
+      "agent": "reviewer",
+      "skill": "code-review",
+      "scope": [
+        "docs/reviews/"
+      ],
+      "dependsOn": [
+        "build"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}
