@@ -1,0 +1,1 @@
+Lies `AGENTS.md` und übernimm dieselben Sicherheits- und Quality-Gates. KORDANT Taskdateien sind vertrauenswürdiger als informelle Chat-Erinnerungen, aber keine Autorisierung für Produktionszugriff.
