@@ -51,7 +51,7 @@ Orientiere dich am projektspezifischen Threat Model und OWASP ASVS 5.0.0. Erford
 
 ## 7. Release, eigener Server und Migration
 
-Vor dem Deployment: Live-Zustand lesend erfassen, verifizierbare CI- und Image-Digests, Staging-Abnahme, Offsite-Backup mit Restore-Drill, DNS/TLS/Firewall, Datenmigration mit Roll-forward-Strategie, Monitoring und menschliche Freigabe. Verändere niemals eine bestehende Caddy-/Docker-/Datenbankinstallation „auf Verdacht“. Nutze `infra/` und `docs/DEPLOYMENT_IONOS.md` als Vorlagen, nicht als unmittelbare Live-Befehle.
+Vor dem Deployment: Live-Zustand lesend erfassen, verifizierbare CI- und Image-Digests, Staging-Abnahme, Offsite-Backup mit Restore-Drill, DNS/TLS/Firewall, Datenmigration mit Roll-forward-Strategie, Monitoring und menschliche Freigabe. Verändere niemals eine bestehende Caddy-/Docker-/Datenbankinstallation „auf Verdacht“. Nutze `infra/` und `docs/DEPLOYMENT_PROVIDER_NEUTRAL.md` als Planungsgrundlage, nie als unmittelbar ausführbare Live-Befehle. Anbieterbesonderheiten gehören ausschließlich in optionale Adapter.
 
 ## 8. Betrieb und Weiterentwicklung
 

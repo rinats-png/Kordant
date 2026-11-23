@@ -4,7 +4,7 @@
 
 KORDANT ist ein **lokal ausführbares, herstellerunabhängiges Engineering-Harness** für Produktplanung, Agentensteuerung, versionierte Skills, testbare Workflows, Nachweise, Sicherheitsgates und einen dokumentierten Weg bis zur eigenen VPS-Infrastruktur. Es ist bewusst kein unkontrollierter „baue alles automatisch“-Button.
 
-> **Status 0.3.0 / Referenzimplementierung**: Die Kern-CLI, Workflow-DAGs, Taskverwaltung, Schreibbereich-Kollisionsschutz, Hash-Nachweise, statische Audits, Prompt-Erzeugung, Kostenjournal, Read-only-Dashboard, Gateway-Prüfungen und Deploy-/Migrationspläne sind implementiert und lokal testbar. **Nicht** implementiert oder extern bestätigt sind ein autonomer Cloud-Runner mit garantierter Sandbox, API-Abrechnung über Provider, echte Serverbereitstellung, kryptografische Audit-Logs, rechtsverbindliche Compliance-Freigaben und ein produktionsreifes Multi-User-Dashboard. Production ist absichtlich fail-closed.
+> **Status 0.3.1 / Referenzimplementierung**: Die Kern-CLI, Workflow-DAGs, Taskverwaltung, Schreibbereich-Kollisionsschutz, Hash-Nachweise, statische Audits, Prompt-Erzeugung, Kostenjournal, Read-only-Dashboard, Gateway-Prüfungen und Deploy-/Migrationspläne sind implementiert und lokal testbar. **Nicht** implementiert oder extern bestätigt sind ein autonomer Cloud-Runner mit garantierter Sandbox, API-Abrechnung über Provider, echte Serverbereitstellung, kryptografische Audit-Logs, rechtsverbindliche Compliance-Freigaben und ein produktionsreifes Multi-User-Dashboard. Production ist absichtlich fail-closed.
 
 ## Inhalt
 
@@ -104,7 +104,7 @@ Die Demo verwendet einen temporären Projektordner und beweist, dass unvollstän
 | Verzeichnis | Zweck |
 |---|---|
 | `src/`, `bin/` | Tatsächlich ausführbare CLI, Ereignisse, Task/DAG/Cost/Evidence und lokale HTTP-Ansicht |
-| `skills/` | 75 Skills im offenen Agent-Skills-Format |
+| `skills/` | 76 Skills im offenen Agent-Skills-Format |
 | `agents/` | Rollenprompts, Grenzen und Handoff-Vorgaben |
 | `workflows/` | 28 JSON-Workflow-DAGs mit Scope und Pflichtbelegen |
 | `docs/` | Architekturbuch, Release-Handbücher, Security, Betrieb, Design, Kosten, Recht, Business |
@@ -130,7 +130,7 @@ Die Demo verwendet einen temporären Projektordner und beweist, dass unvollstän
 - Es gibt keine Anmeldung für das Dashboard; es ist **nur lokal** zu verwenden. Nicht auf deinem VPS öffentlich freigeben.
 - Die Produktionsfreigabe wird absichtlich **niemals** als bestanden ausgegeben, solange eine echte unabhängige Prüfung fehlt.
 
-Prüfergebnis: **29 lokale Tests grün**, kein echter VPS-/Providerlauf. Siehe [Prüfbericht](docs/TESTBERICHT_2026-11-23.md).
+Prüfergebnis: **47 lokale Tests grün**, kein echter VPS-/Providerlauf. Siehe [aktueller Prüfbericht](docs/TESTBERICHT_V0.3.1.md).
 
 Weitere Informationen: [Technischer Gesamtplan](docs/MASTERBLUEPRINT.md), [Status & offene Arbeit](docs/STATUS_AND_ROADMAP.md), [Startanleitung](docs/USER_GUIDE.md), [Engineering-Verträge](docs/QUALITY.md).
 
@@ -138,8 +138,12 @@ Weitere Informationen: [Technischer Gesamtplan](docs/MASTERBLUEPRINT.md), [Statu
 
 ## Anbieterneutral (v0.3.0)
 
-Siehe [Provider-neutrales Deployment](docs/DEPLOYMENT_PROVIDER_NEUTRAL.md). Die standardmäßige `deploy plan`/`migrate plan`-Ausgabe ist herstellerunabhängig; IONOS existiert nur noch als optionales Legacy-Beispiel. Neue CLI-Befehle: `plan import`, `trace`, `journal seal/verify`, `skill pin/verify`, `git inspect`, `eval run`, `capability check` und `recovery inspect/block`.
+Siehe [Provider-neutrales Deployment](docs/DEPLOYMENT_PROVIDER_NEUTRAL.md). Die standardmäßige `deploy plan`/`migrate plan`-Ausgabe ist herstellerunabhängig; IONOS ist lediglich ein optionales Providerbeispiel. Die aktiven Standard-Workflows sind herstellerneutral. Neue CLI-Befehle: `plan import`, `trace`, `journal seal/verify`, `skill pin/verify`, `git inspect`, `eval run`, `capability check` und `recovery inspect/block`.
 
 ## 0.3.0 – Lokale Agentenarbeitsplätze und Nachweise
 
 Neue Befehle: `worktree plan|create|status`, `build attest|verify`, `security sarif`, `github checks` (read-only). Siehe [Release-Notes](docs/RELEASE_NOTES_0.3.0.md) und [Security- und Provenance-Grenzen](docs/SECURITY_RELEASE_PROVENANCE.md). Worktrees sind **keine** Sandbox.
+
+## 0.3.1 – Anbieterneutralität durchgehend
+
+Standard-Workflows und Kataloggenerator verwenden durchgehend `provider-agnostic-deploy`. Der CLI-Befehl `platform list|inspect` prüft auch eigene JSON-Providerprofile ohne Fremdcode auszuführen. Über `--platform` wird der technische Plattformtyp und unabhängig davon über `--vendor` eine frei wählbare Anbieterkennung angegeben; beides plant **nur**, greift nie live zu. Beispiel: `kordant deploy plan --domain app.example.com --platform container-host --vendor mein-provider --target staging`. Spezialisierte Providerbeispiele bleiben optional.

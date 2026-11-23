@@ -83,15 +83,15 @@ node bin/kordant.mjs --project ../mein-produkt cost record --provider Beispiel -
 
 `--rate-input` und `--rate-output` bedeuten **USD je eine Million Token**, nicht je Token. Werte musst du aus deinem tatsächlich verwendeten Anbieter übernehmen. Die CLI behauptet keine aktuellen Marktpreise. **Kosten für externe KI-Provider sind nicht automatisch gedeckelt.**
 
-## 7. IONOS-Migration vorbereiten
+## 7. Anbieterneutrale Servermigration vorbereiten
 
 ```bash
-node bin/kordant.mjs --project ../mein-produkt migrate plan --source "alter VPS" --destination ionos-vps --data "Dateien+DB"
+node bin/kordant.mjs --project ../mein-produkt migrate plan --source "alter VPS" --destination generic-vps --vendor eigener-anbieter --data "Dateien+DB"
 node bin/kordant.mjs --project ../mein-produkt deploy plan --domain staging.example.com --target staging
 node bin/kordant.mjs --project ../mein-produkt gate release
 ```
 
-Das erzeugt Plan-Dateien. Es verbindet sich mit **keinem** Server. Die echte Migration gehört in eine separate, freigegebene und fachlich überprüfte Betriebsphase. Siehe `DEPLOYMENT_IONOS.md`.
+Das erzeugt Plan-Dateien. Es verbindet sich mit **keinem** Server. Die echte Migration gehört in eine separate, freigegebene und fachlich überprüfte Betriebsphase. Siehe `DEPLOYMENT_PROVIDER_NEUTRAL.md`.
 
 ## 8. Typische Fehler und schnelle Lösung
 

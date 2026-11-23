@@ -1,3 +1,5 @@
+> **v0.3.1:** Aktive Standard-Workflows, generatorseitige Skills, Nutzerdokumentation und Infrastrukturplanung sind jetzt durchgehend anbieterneutral. `--vendor` speichert frei benennbare Hostinganbieter, ohne API-Fähigkeiten zu behaupten. Bei der Installation echter Adapter bleiben externe Prüfung und Nutzerfreigabe Pflicht.
+
 > **2026-11-23 · v0.3.0-Update:** Lokale Task-Worktrees (opt-in), Build-Provenance mit Hashprüfungen, SARIF-Auswertung und lesender GitHub-CI-Adapter ergänzt. Agenten-Sandbox, sichere Live-Deployments und externe Freigaben sind weiterhin nicht nachgewiesen. Siehe `docs/RELEASE_NOTES_0.3.0.md`.
 
 > **2026-11-23 · v0.2.0-Update:** Anbieterneutrale Plattformprofile und Migrationspläne implementiert; zusätzlicher idea-to-app-Markdown-Importer/Traceability-Report, Skill-Pinning, Journal-HMAC-Check, Evals, read-only Git-Inspektion, Fähigkeitsprüfung und operator-gesteuerte Recovery. Die darunter aufgeführten restlichen Plattform- und Produktionspunkte sind weiterhin offen; ein lokaler Test ist keine reale Produktionsabnahme.
@@ -18,11 +20,11 @@ Ein universelles Agentic-Engineering-System kann nicht durch eine Sammlung von P
 - ✅ Evidence-Store mit Datei-SHA256 und Integritätsprüfung vor Taskabschluss.
 - ✅ Gate-Checklisten, einschließlich absichtlicher Sperre von `production`.
 - ✅ Budgeterfassung, Reservierung, Warnung bei Überschreitung und grobe riskbasierte Modellauswahl ohne erfundene Preise.
-- ✅ Prompt-Komposition aus 75 SKILL.md und 18 Rollen, 28 Workflowpakete.
+- ✅ Prompt-Komposition aus 76 SKILL.md und 18 Rollen, 28 Workflowpakete.
 - ✅ Externe CLI-Adapter als explizit opt-in und mit ungemessenen Kosten klar gekennzeichnet; der Standard bleibt Prompt-Export.
 - ✅ Optionaler idea-to-app-Install aus lokalem Clone oder bewusstem Git-Download, mit festgelegtem Upstream SHA.
 - ✅ Docker/Caddy/Backup/Restore/VPS-Beispielkonfigurationen, ohne automatische Live-Ausführung.
-- ✅ IONOS-Deployment- und Migrationsplanung als nicht ausführende JSON-Runbooks.
+- ✅ Anbieterneutrale Deployment- und Migrationsplanung als nicht ausführende JSON-Runbooks; providergebundene Legacy-Vorlagen bleiben optional.
 - ✅ Lokales ausschließlich lesendes Dashboard auf 127.0.0.1.
 - ✅ Laufender Node-Web-Demostarter mit `/health`, responsiver UI und eigenen Tests.
 - ✅ 29 lokale automatisierte Tests, sichere End-to-End-Demo und Self-Check; GitHub-CI-Konfiguration ist noch keine bestätigte Remote-CI-Ausführung.

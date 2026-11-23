@@ -18,7 +18,7 @@ Es gibt vier Klassen: **A: eingebaut**, **B: per gepinntem Quellcode installierb
 | GitHub Actions | A – Beispiel-CI für KORDANT | Tests und Self-Check | Für konkrete App eigene CI nötig |
 | Trivy/Gitleaks/Semgrep | D – Hinweise | scanning | erst installiert und konfiguriert wirksam |
 | Docker/Caddy/Restic | A – geprüfte Vorlagen, nicht Live ausgeführt | Infrastruktur/Backups | keine automatische Prod-Mutation |
-| Stripe/Resend/IONOS-SMTP | D – Anforderungen | Business/Mail | kein aktiver Zahlungs-/Mail-Adapter |
+| Zahlungs- und E-Mail-Anbieter (z. B. Stripe, Resend, SMTP) | D – Anforderungen | Business/Mail | kein aktiver Zahlungs-/Mail-Adapter |
 | Apple/Google Stores | D – Runbooks | Mobile Veröffentlichung | keine Store-Anmeldedaten / Uploads |
 
 ## 2. idea-to-app

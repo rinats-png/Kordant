@@ -2,7 +2,7 @@
 
 ## Was ist KORDANT jetzt?
 
-KORDANT ist ein **lokal lauffähiges System zur Organisation und Kontrolle von KI-gestützter Softwareentwicklung**. Du kannst damit bereits Projekte anlegen oder übernehmen, Planung erstellen, Aufgaben verteilen, die passenden Rollen-/Skill-Anweisungen erzeugen, Nachweise sammeln und den Fortschritt in einem lokalen Dashboard sehen. Hinzu kommen 75 Skills, 18 Rollen, 28 Workflows und ausführliche Anleitungen für Design, Sicherheit, Geschäftsmodell, IONOS und Migration.
+KORDANT ist ein **lokal lauffähiges System zur Organisation und Kontrolle von KI-gestützter Softwareentwicklung**. Du kannst damit bereits Projekte anlegen oder übernehmen, Planung erstellen, Aufgaben verteilen, die passenden Rollen-/Skill-Anweisungen erzeugen, Nachweise sammeln und den Fortschritt in einem lokalen Dashboard sehen. Hinzu kommen 76 Skills, 18 Rollen, 28 Workflows und Anleitungen für Design, Sicherheit, Geschäftsmodelle sowie Migration auf unterschiedliche Server- und Cloudplattformen.
 
 KORDANT **schreibt nicht ohne gesondert eingerichtete KI-Tools automatisch eine komplette App** und **stellt keine App ohne überprüfte Zugänge selbständig auf einem VPS bereit**. Es ist eine getestete erste Version, kein produktionsreifer autonomer Deploy-Dienst. Das ist eine wichtige Sicherheitsgrenze.
 
@@ -69,6 +69,6 @@ Bei riskanten Aufgaben (Konto-/Rechteverwaltung, Billing, Gesundheits-/Kinderdat
 1. Entpacke das Paket.
 2. Starte `npm test` und `npm run check` im Ordner.
 3. Öffne KORDANT in Claude Code oder Codex und gib den Auftrag aus Variante A.
-4. Erst wenn der Produktionsunterbau in isolierter Testumgebung funktioniert, benutze KORDANT zur echten autonomen Softwareentwicklung auf deinem IONOS-Server.
+4. Erst wenn der Produktionsunterbau in isolierter Testumgebung funktioniert, benutze KORDANT zur echten autonomen Softwareentwicklung in einer von dir kontrollierten, zuvor geprüften Infrastruktur.
 
 **Mehr Details:** `docs/USER_GUIDE.md`, `docs/MASTERBLUEPRINT.md`, `docs/STATUS_AND_ROADMAP.md`.
