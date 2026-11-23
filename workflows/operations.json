@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "operations",
+  "title": "Regelmäßige Betriebsprüfung",
+  "category": "operations",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "monitor",
+      "title": "SLO, Fehlerbudget und Alarmierungen prüfen",
+      "agent": "sre",
+      "skill": "observability",
+      "scope": [
+        "docs/ops/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "restore",
+      "title": "Backupstatus und Restore-Protokoll prüfen",
+      "agent": "sre",
+      "skill": "backup-dr",
+      "scope": [
+        "docs/ops/"
+      ],
+      "dependsOn": [
+        "monitor"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "updates",
+      "title": "EOL, CVE und Zertifikate priorisieren",
+      "agent": "security",
+      "skill": "maintenance",
+      "scope": [
+        "docs/ops/"
+      ],
+      "dependsOn": [
+        "restore"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "review",
+      "title": "Betriebsbericht mit Risiken und To-dos",
+      "agent": "reviewer",
+      "skill": "compliance-evidence",
+      "scope": [
+        "docs/ops/"
+      ],
+      "dependsOn": [
+        "updates"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

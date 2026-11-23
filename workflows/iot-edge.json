@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "iot-edge",
+  "title": "Geräte- und Edge-Software",
+  "category": "platform",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "risk",
+      "title": "Geräte, Identität, Firmware, Ausfälle",
+      "agent": "architect",
+      "skill": "iot-edge",
+      "scope": [
+        "docs/iot/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "prototype",
+      "title": "OTA/Config ohne Produktivflotte",
+      "agent": "engineer",
+      "skill": "iot-edge",
+      "scope": [
+        "src/iot/"
+      ],
+      "dependsOn": [
+        "risk"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "test",
+      "title": "Offline/Power/Update-Rollback",
+      "agent": "qa",
+      "skill": "unit-tests",
+      "scope": [
+        "tests/iot/"
+      ],
+      "dependsOn": [
+        "prototype"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "security",
+      "title": "Signaturen/Keys und unabhängiger Review",
+      "agent": "security",
+      "skill": "supply-chain",
+      "scope": [
+        "docs/reviews/"
+      ],
+      "dependsOn": [
+        "test"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

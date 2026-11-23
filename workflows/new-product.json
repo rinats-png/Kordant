@@ -1,0 +1,286 @@
+{
+  "schemaVersion": 1,
+  "id": "new-product",
+  "title": "Neues Produkt von Idee bis Betrieb",
+  "category": "product",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "discovery",
+      "title": "Ziel, Problem und Zielgruppe validieren",
+      "agent": "product",
+      "skill": "ideation",
+      "scope": [
+        "docs/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "market",
+      "title": "Markt, Nutzen und Geschäftsmodell prüfen",
+      "agent": "product",
+      "skill": "market-validation",
+      "scope": [
+        "docs/"
+      ],
+      "dependsOn": [
+        "discovery"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "requirements",
+      "title": "idea-to-app PRD mit ID-Ketten erstellen",
+      "agent": "product",
+      "skill": "idea-to-app-integration",
+      "scope": [
+        "docs/"
+      ],
+      "dependsOn": [
+        "discovery",
+        "market"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "architecture",
+      "title": "Architektur, Datenmodell und ADRs",
+      "agent": "architect",
+      "skill": "architecture",
+      "scope": [
+        "docs/"
+      ],
+      "dependsOn": [
+        "requirements"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "threat",
+      "title": "Sicherheits- und Datenschutzmodell",
+      "agent": "security",
+      "skill": "security-threat-model",
+      "scope": [
+        "docs/"
+      ],
+      "dependsOn": [
+        "requirements",
+        "architecture"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "ux",
+      "title": "Flows, Hallmark-Designsystem und Taste-Review",
+      "agent": "designer",
+      "skill": "design-hallmark",
+      "scope": [
+        "design/"
+      ],
+      "dependsOn": [
+        "requirements"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "foundation",
+      "title": "CI, Repository, Testumgebung und Secrets",
+      "agent": "platform",
+      "skill": "ci-cd",
+      "scope": [
+        ".github/",
+        "infra/"
+      ],
+      "dependsOn": [
+        "architecture",
+        "threat"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "vertical",
+      "title": "Erster vertikaler Funktionsschnitt",
+      "agent": "engineer",
+      "skill": "implementation",
+      "scope": [
+        "src/"
+      ],
+      "dependsOn": [
+        "foundation",
+        "ux"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "qa",
+      "title": "Automatisierte Tests und UX/Accessibility",
+      "agent": "qa",
+      "skill": "e2e-playwright",
+      "scope": [
+        "tests/"
+      ],
+      "dependsOn": [
+        "vertical"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "security",
+      "title": "Bedrohungsmodell gegen Implementierung prüfen",
+      "agent": "security",
+      "skill": "security-scan",
+      "scope": [
+        "security/"
+      ],
+      "dependsOn": [
+        "vertical"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "privacy",
+      "title": "Compliance, Verträge und Datenlebenszyklus",
+      "agent": "legal",
+      "skill": "privacy-dsgvo",
+      "scope": [
+        "docs/privacy/"
+      ],
+      "dependsOn": [
+        "security"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "release",
+      "title": "Versioniertes Release mit Evidenz",
+      "agent": "reviewer",
+      "skill": "compliance-evidence",
+      "scope": [
+        "docs/release/"
+      ],
+      "dependsOn": [
+        "qa",
+        "security",
+        "privacy"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "infrastructure",
+      "title": "VPS und Monitoring für Staging vorbereiten",
+      "agent": "platform",
+      "skill": "ionos-deploy",
+      "scope": [
+        "infra/"
+      ],
+      "dependsOn": [
+        "release"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "backup",
+      "title": "Verschlüsselte Backups und Wiederherstellungstest",
+      "agent": "sre",
+      "skill": "backup-dr",
+      "scope": [
+        "infra/backup/"
+      ],
+      "dependsOn": [
+        "infrastructure"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "staging",
+      "title": "Staging-Ende-zu-Ende-Abnahme",
+      "agent": "qa",
+      "skill": "e2e-playwright",
+      "scope": [
+        "tests/staging/"
+      ],
+      "dependsOn": [
+        "backup"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "launch",
+      "title": "Freigabegate und dokumentierte Veröffentlichung",
+      "agent": "sre",
+      "skill": "ci-cd",
+      "scope": [
+        "docs/release/"
+      ],
+      "dependsOn": [
+        "staging"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "operations",
+      "title": "Betriebsübergabe, Alarmierung und Wartung",
+      "agent": "sre",
+      "skill": "observability",
+      "scope": [
+        "docs/ops/"
+      ],
+      "dependsOn": [
+        "launch"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

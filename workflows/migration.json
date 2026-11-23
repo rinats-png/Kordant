@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "id": "migration",
+  "title": "Migration auf eine frei wählbare Zielinfrastruktur",
+  "category": "infrastructure",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "inventory",
+      "title": "Quellen und Zielinfrastruktur lesend erfassen",
+      "agent": "analyst",
+      "skill": "vps-infrastructure",
+      "scope": [
+        "docs/migration/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "plan",
+      "title": "Schema, Dateien, Zeiten, Rollback/Forward planen",
+      "agent": "dba",
+      "skill": "data-migration",
+      "scope": [
+        "docs/migration/"
+      ],
+      "dependsOn": [
+        "inventory"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "backup",
+      "title": "Backup und unabhängigen Restore-Test nachweisen",
+      "agent": "sre",
+      "skill": "backup-dr",
+      "scope": [
+        "infra/backup/"
+      ],
+      "dependsOn": [
+        "plan"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "dryrun",
+      "title": "Migration auf Testkopie durchführen",
+      "agent": "platform",
+      "skill": "data-migration",
+      "scope": [
+        "infra/migration/"
+      ],
+      "dependsOn": [
+        "backup"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "verify",
+      "title": "Datenintegrität, Berechtigungen und Last prüfen",
+      "agent": "qa",
+      "skill": "e2e-playwright",
+      "scope": [
+        "tests/migration/"
+      ],
+      "dependsOn": [
+        "dryrun"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "cutover",
+      "title": "Produktivwechsel nur nach Freigabe vorbereiten",
+      "agent": "platform",
+      "skill": "provider-agnostic-deploy",
+      "scope": [
+        "docs/release/"
+      ],
+      "dependsOn": [
+        "verify"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}

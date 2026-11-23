@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "voice-agent",
+  "title": "KI-Telefonassistent",
+  "category": "ai",
+  "description": "Nachweisorientierter, risikobasierter Workflow mit Abhängigkeiten und getrennten Rollen.",
+  "steps": [
+    {
+      "id": "scope",
+      "title": "Szenarien, Einwilligung, Escalation",
+      "agent": "product",
+      "skill": "voice-telephony",
+      "scope": [
+        "docs/voice/"
+      ],
+      "dependsOn": [],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "architecture",
+      "title": "Provider, Latenz, Call-Control",
+      "agent": "architect",
+      "skill": "ai-safety",
+      "scope": [
+        "docs/voice/"
+      ],
+      "dependsOn": [
+        "scope"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    },
+    {
+      "id": "implement",
+      "title": "Callhandler, TTS/ASR und Limits",
+      "agent": "ai-engineer",
+      "skill": "voice-telephony",
+      "scope": [
+        "src/voice/"
+      ],
+      "dependsOn": [
+        "architecture"
+      ],
+      "requiredEvidence": [
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "review",
+      "title": "Anrufsicherheit, Kosten, Datenschutz",
+      "agent": "security",
+      "skill": "privacy-dsgvo",
+      "scope": [
+        "docs/reviews/"
+      ],
+      "dependsOn": [
+        "implement"
+      ],
+      "requiredEvidence": [
+        "artifact",
+        "review"
+      ]
+    }
+  ]
+}
